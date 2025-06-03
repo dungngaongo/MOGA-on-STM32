@@ -39,7 +39,7 @@ extern float step_size;
 
 // Utility functions
 float rand01();
-float rand_range(double min, double max);
+float rand_range(float min, float max);
 
 // Core NSGA-II functions
 void random_population(Population *pop);

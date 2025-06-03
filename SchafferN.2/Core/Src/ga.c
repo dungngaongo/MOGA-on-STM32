@@ -137,7 +137,7 @@ void crowding_distance(Solution *front, int front_size, float *distances) {
     }
 
     for (int obj = 0; obj < 2; obj++) {
-        int indices[MAX_ARCHIVE];
+        int indices[POP_SIZE * 3];
         for (int i = 0; i < front_size; i++) indices[i] = i;
 
         for (int i = 0; i < front_size - 1; i++) {
@@ -167,7 +167,7 @@ void crowding_distance(Solution *front, int front_size, float *distances) {
 }
 
 void select_by_crowding(Solution *solutions, int size, int num_to_select, Solution *selected) {
-    float distances[MAX_ARCHIVE];
+    float distances[POP_SIZE * 3];
     crowding_distance(solutions, size, distances);
 
     for (int i = 0; i < num_to_select; i++) {

@@ -94,6 +94,10 @@ int main(void)
   MX_GPIO_Init();
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
+  char msgg[] = "UART test\r\n";
+  HAL_UART_Transmit(&huart1, (uint8_t*)msgg, strlen(msgg), HAL_MAX_DELAY);
+
+
   Population pop, offspring_cross, offspring_mut, offspring_ls, combined, selected;
   Archive archive = {0};
 

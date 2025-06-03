@@ -1,0 +1,14 @@
+../Core/Src/ga.c:18:7:rand01	8	static
+../Core/Src/ga.c:22:7:rand_range	24	static
+../Core/Src/ga.c:26:6:random_population	24	static
+../Core/Src/ga.c:35:6:evaluate	24	static
+../Core/Src/ga.c:51:6:crossover	32	static
+../Core/Src/ga.c:76:6:mutation	32	static
+../Core/Src/ga.c:88:6:local_search	24	static
+../Core/Src/ga.c:102:6:dominates	24	static
+../Core/Src/ga.c:115:6:find_pareto_front	40	static
+../Core/Src/ga.c:132:6:crowding_distance	1264	static
+../Core/Src/ga.c:169:6:select_by_crowding	1248	static
+../Core/Src/ga.c:185:6:selection	240	dynamic
+../Core/Src/ga.c:234:6:update_archive	1864	dynamic
+../Core/Src/ga.c:255:6:send_archive	112	static
