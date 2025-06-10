@@ -7,6 +7,8 @@
 
 #include "ga.h"
 
+extern RNG_HandleTypeDef hrng;
+
 float lb[NV] = {-4.0, -4.0};
 float ub[NV] = {4.0, 4.0};
 float crossover_prob = 0.6;
@@ -14,8 +16,14 @@ float mutation_prob = 0.05;
 int rate_local_search = 30;
 float step_size = 0.02;
 
+uint32_t trng_rand() {
+    uint32_t value;
+    HAL_RNG_GenerateRandomNumber(&hrng, &value);
+    return value;
+}
+
 float rand01() {
-    return (float)rand() / RAND_MAX;
+    return (float)trng_rand() / (float)0xFFFFFFFF;
 }
 
 float rand_range(float min, float max) {
@@ -50,13 +58,13 @@ void crossover(Population *pop, Population *offspring) {
     offspring->size = 0;
     for (int i = 0; i < pop->size / 2; i++) {
         if (rand01() < crossover_prob) {
-            int r1 = rand() % pop->size;
-            int r2 = rand() % pop->size;
+            int r1 = trng_rand() % pop->size;
+            int r2 = trng_rand() % pop->size;
             while (r1 == r2) {
-                r2 = rand() % pop->size;
+                r2 = trng_rand() % pop->size;
             }
 
-            int cutting_point = rand() % (NV - 1) + 1;
+            int cutting_point = trng_rand() % (NV - 1) + 1;
 
             for (int j = 0; j < NV; j++) {
                 if (j < cutting_point) {
@@ -81,7 +89,7 @@ void mutation(Population *pop, Population *offspring) {
     for (int i = 0; i < pop->size; i++) {
         if (rand01() < mutation_prob) {
             offspring->solutions[offspring->size] = pop->solutions[i];
-            int mutation_point = rand() % NV;
+            int mutation_point = trng_rand() % NV;
             offspring->solutions[offspring->size].x[mutation_point] =
                 rand_range(lb[mutation_point], ub[mutation_point]);
             evaluate(&offspring->solutions[offspring->size]);
@@ -93,9 +101,9 @@ void mutation(Population *pop, Population *offspring) {
 void local_search(Population *pop, Population *offspring) {
     offspring->size = rate_local_search;
     for (int i = 0; i < rate_local_search; i++) {
-        int r1 = rand() % pop->size;
+        int r1 = trng_rand() % pop->size;
         offspring->solutions[i] = pop->solutions[r1];
-        int r2 = rand() % NV;
+        int r2 = trng_rand() % NV;
         offspring->solutions[i].x[r2] += rand_range(-step_size, step_size);
 
         if (offspring->solutions[i].x[r2] < lb[r2])
