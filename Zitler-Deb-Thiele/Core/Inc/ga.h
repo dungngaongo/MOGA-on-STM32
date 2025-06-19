@@ -15,7 +15,7 @@
 #include <float.h>
 #include <string.h>
 
-#define NV 15
+#define NV 30
 #define POP_SIZE 100
 #define MAX_ITER 200
 #define PI 3.141592653589793

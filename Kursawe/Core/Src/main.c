@@ -106,7 +106,11 @@ int main(void)
 	  evaluate(&pop.solutions[i]);
   }
 
-  uint32_t start_time = HAL_GetTick();
+  CoreDebug->DEMCR |= CoreDebug_DEMCR_TRCENA_Msk;
+  DWT->CYCCNT = 0;
+  DWT->CTRL |= DWT_CTRL_CYCCNTENA_Msk;
+
+  uint32_t start_cycles = DWT->CYCCNT;
 
   // Main optimization loop
   for (int iter = 0; iter < MAX_ITER; iter++) {
@@ -136,10 +140,10 @@ int main(void)
 	  printf("Iteration %d\n", iter);
   }
 
-  uint32_t end_time = HAL_GetTick();
-  uint32_t elapsed_ms = end_time - start_time;
-
-  float time_sec = elapsed_ms / 1000.0f;
+  uint32_t end_cycles = DWT->CYCCNT;
+  uint32_t elapsed_cycles = end_cycles - start_cycles;
+  float time_sec = (float)elapsed_cycles / 180000000.0f;
+  float elapsed_ms = time_sec * 1000.0f;
   float energy_joules = VOLTAGE * CURRENT * time_sec;
 
   // Extract Pareto front from final population
@@ -155,13 +159,12 @@ int main(void)
 
   char msg[128];
   for (int i = 0; i < pareto_front.size; i++) {
-	  snprintf(msg, sizeof(msg), "x: %.2f, %.2f | f1: %.4f, f2: %.4f\r\n",
-			  pareto_front.solutions[i].x[0], pareto_front.solutions[i].x[1],
+	  snprintf(msg, sizeof(msg), "f1: %.4f, f2: %.4f\r\n",
 			  pareto_front.solutions[i].fitness[0], pareto_front.solutions[i].fitness[1]);
 	  HAL_UART_Transmit(&huart1, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
   }
 
-  snprintf(msg, sizeof(msg), "Done! Time: %lums (%.2fs), Energy: %.4fJ\r\n", elapsed_ms, time_sec, energy_joules);
+  snprintf(msg, sizeof(msg), "Done! Time: %.2fms (%.2fs), Energy: %.4fJ\r\n", elapsed_ms, time_sec, energy_joules);
   HAL_UART_Transmit(&huart1, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
   /* USER CODE END 2 */
 

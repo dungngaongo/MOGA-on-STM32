@@ -252,8 +252,7 @@ void update_archive(Population *pop, Archive *archive) {
 void send_archive(UART_HandleTypeDef *huart, Archive *archive) {
     char msg[64];
     for (int i = 0; i < archive->size; i++) {
-        snprintf(msg, sizeof(msg), "archive,%f,%f,%f\r\n",
-                 archive->solutions[i].x[0],
+        snprintf(msg, sizeof(msg), "%f,%f\r\n",
                  archive->solutions[i].fitness[0],
                  archive->solutions[i].fitness[1]);
         HAL_UART_Transmit(huart, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);

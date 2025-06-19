@@ -12,4 +12,4 @@
 ../Core/Src/ga.c:165:6:select_by_crowding	1248	static
 ../Core/Src/ga.c:182:6:selection	240	dynamic
 ../Core/Src/ga.c:231:6:update_archive	3664	dynamic
-../Core/Src/ga.c:252:6:send_archive	128	static
+../Core/Src/ga.c:252:6:send_archive	112	static
