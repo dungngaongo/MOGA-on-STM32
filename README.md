@@ -38,14 +38,14 @@ Clone the repository
 git clone https://github.com/dungngaongo/MOGA-on-STM32.git
 cd MOGA-on-STM32
 
-> Launch STM32CubeIDE
-> Select File > Open Projects from File System
-> Browse to the cloned folder and import the project
-> Build & Flash
-> Connect your STM32F429I-Discovery via USB
-> Click Build (Ctrl+B)
-> Flash to board via Run > Debug
-> Monitor Output via UART
-> Open a serial terminal (PuTTY)
-> Baud rate: 115200, 8N1
-> Observe optimized Pareto front data streamed to your PC
+- Launch STM32CubeIDE
+- Select File > Open Projects from File System
+- Browse to the cloned folder and import the project
+- Build & Flash
+- Connect your STM32F429I-Discovery via USB
+- Click Build (Ctrl+B)
+- Flash to board via Run > Debug
+- Monitor Output via UART
+- Open a serial terminal (PuTTY)
+- Baud rate: 115200, 8N1
+- Observe optimized Pareto front data streamed to your PC
