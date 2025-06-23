@@ -26,9 +26,26 @@ This project implements a **Multi-Objective Genetic Algorithm (MOGA)** on the **
 🛠 Development Environment
 | Component         | Version           | Notes                                |
 | ----------------- | ----------------- | ------------------------------------ |
-| STM32CubeIDE      | v1.13.2 or newer  | Official IDE from STMicroelectronics |
+| STM32CubeIDE      | v1.18.0           | Official IDE from STMicroelectronics |
 | STM32 HAL Drivers | Bundled with IDE  | Used for UART, GPIO, and system init |
-| GNU Arm Toolchain | GCC 10.3 or newer | Comes with STM32CubeIDE              |
-| Windows / Linux   | Any               | Tested on Windows 10                 |
-| Python 3.x        | Optional          | For plotting results from UART       |
+| GNU Arm Toolchain | GCC 13.3          | Comes with STM32CubeIDE              |
+| Windows / Linux   | Any               | Tested on Windows 11                 |
+| Python            | Optional          | For plotting results from UART       |
 
+⚙️ Setup Instructions
+Clone the repository
+
+git clone https://github.com/dungngaongo/MOGA-on-STM32.git
+cd MOGA-on-STM32
+
+> Launch STM32CubeIDE
+> Select File > Open Projects from File System
+> Browse to the cloned folder and import the project
+> Build & Flash
+> Connect your STM32F429I-Discovery via USB
+> Click Build (Ctrl+B)
+> Flash to board via Run > Debug
+> Monitor Output via UART
+> Open a serial terminal (PuTTY)
+> Baud rate: 115200, 8N1
+> Observe optimized Pareto front data streamed to your PC
